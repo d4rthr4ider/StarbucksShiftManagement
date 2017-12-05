@@ -1,0 +1,122 @@
+﻿@model IEnumerable<SSM_V5.Models.Shift>
+
+@{
+    ViewBag.Title = "Open Shifts";
+}
+@using System.ComponentModel.DataAnnotations
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-2.2.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.8.1/jquery.timepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.8.1/jquery.timepicker.min.css" type="text/css" />
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            $('.date-picker').datepicker({
+                showOptions: { speed: 'fast' },
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'MM/dd/yy',
+                gotoCurrent: true
+            });
+            $('.timepicker').timepicker();
+        });
+    </script>
+</head>
+<h2>Open Shifts</h2>
+<div class="container-fluid">
+    @if (TempData["Success"] != null)
+    {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table table-hover">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StartTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EndTime)
+                    </th>
+                    <th>
+                        Partner
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Store.StoreName)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+
+                    <tr class="table">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AspNetUser.FirstName) @Html.DisplayFor(modelItem => item.AspNetUser.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Store.StoreName)
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn btn-success btn-md" onclick="location.href='@Url.Action("CoverShift", "Shifts", new { id=item.ShiftID })'">
+                                Cover Shift
+                            </button>
+                        </td>
+                    </tr>
+
+                }
+
+            </table>
+        </div>
+        <div class="col-md-2 well">
+            <div class="form-group">
+                @using (Html.BeginForm("OpenShiftList", "Shifts", FormMethod.Get))
+                {
+                    <p>
+                        Date 
+                @Html.TextBox("searchStartDate", "", new { @class = "date-picker" }) to @Html.TextBox("searchEndDate", "", new { @class = "date-picker" })
+                    </p><p>
+                    Start Time @Html.TextBox("searchStartTime", "", new { @class = "timepicker" })
+                    </p><p>
+                        End Time @Html.TextBox("searchEndTime", "", new { @class = "timepicker" })
+                    </p><p>
+                        My Store @Html.CheckBox("searchStore")
+                    </p><p>
+                        My District @Html.CheckBox("searchDistrict")
+                </p><p>
+                        My Area     @Html.CheckBox("searchArea")
+                </p><p>
+                        <input type="submit" value="Search" class="btn btn-primary btn-md" />  <a class="btn btn-primary" @Html.ActionLink("Reset", "OpenShiftList", "Shifts")
+                    </p>
+                    }
+        </div>
+    </div>
+        </div>
+
+    </div>
+<a class="btn btn-primary" @Html.ActionLink("Approvals", "CoveredApproval")
+   @section Scripts {
+   @Scripts.Render("~/bundles/jqueryval")
+   @Scripts.Render("~/bundles/jqueryui")
+   @Styles.Render("~/Content/cssjqryUi")
+   @Scripts.Render("~/bundles/jstimepicker")
+   @Styles.Render("~/bundles/csstimepicker")
+   }
+
+
+
+

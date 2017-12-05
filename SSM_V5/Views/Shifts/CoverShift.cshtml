@@ -1,0 +1,73 @@
+﻿@model SSM_V5.Models.CoveredViewModel
+@{
+    ViewBag.Title = "Cover a Shift";
+}
+<style>
+    .labelpad {
+        padding-top: 7px;
+    }
+</style>
+
+<h2>Cover a Shift</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ShiftModelObject.ShiftID)
+
+    <div class="form-horizontal">
+        <h4>Please confirm details of the shift you want to cover.</h4>
+        <p></p>
+        <p></p>
+        <div class="panel panel-info">
+            <div class="panel-heading">Shift Details</div>
+            <div class="panel-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => Model.ShiftModelObject.Date, "Shift Date", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 labelpad">
+                    @Html.DisplayFor(model => Model.ShiftModelObject.Date)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShiftModelObject.StartTime, "Start Time", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 labelpad">
+                    @Html.DisplayFor(model => model.ShiftModelObject.StartTime)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShiftModelObject.EndTime, "End Time", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 labelpad">
+                    @Html.DisplayFor(model => model.ShiftModelObject.EndTime)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShiftModelObject.StoreNum, "Store Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10 labelpad">
+                    @Html.DisplayFor(model => model.ShiftModelObject.StoreNum)
+                </div>
+            </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ShiftModelObject.Store.StoreName, "Store Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 labelpad">
+                       @Html.ActionLink(Model.ShiftModelObject.Store.StoreName, "StoreFinder", new { id = Model.ShiftModelObject.StoreNum, target = "_blank" })
+                    </div>
+                </div>
+        </div>
+            </div>
+
+        <p> <input type="submit" value="Cover Shift" class="btn btn-success" />  <a class="btn btn-primary" @Html.ActionLink("Back to List", "OpenShiftList")
+        </p>
+                </div>
+
+
+
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

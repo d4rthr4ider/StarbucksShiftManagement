@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SSM_V5.Models.Shift>
+@{
+    ViewBag.Title = "ApprovalIndex";
+}
+
+<h2>Approved Shifts</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr class="table">
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <th>
+                @Html.DisplayFor(model => item.Status)
+            </th>
+            <td>
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+<a class="btn btn-primary" @Html.ActionLink("View/Edit Shifts", "UserShiftIndex")

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+}
+@using SSM_V5.Controllers;
+@using Microsoft.AspNet.Identity
+
+<div style="background:#006633; color:white;" class="jumbotron">
+    <important> <h1>Starbucks Shift Management</h1></important>
+    <p class="lead">Welcome Admin</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Edit Shifts</h2>
+        <p>
+            From here, you can edit any shifts that have been posted.
+        </p>
+        <p><a class="btn btn-primary" @Html.ActionLink("Edit Shifts", "Index", "Shifts")</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Edit Stores</h2>
+        <p>From here, you can edit the list of stores.</p>
+        <p><a class="btn btn-primary" @Html.ActionLink("Edit Stores", "Index", "Stores")</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Edit Users</h2>
+        <p>From here, you can edit the list of users.</p>
+        <p><a class="btn btn-primary" @Html.ActionLink("Edit Users", "Index", "Profile")</a></p>
+    </div>
+</div>

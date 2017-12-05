@@ -1,0 +1,78 @@
+﻿@model IEnumerable<SSM_V5.Models.ManageShiftViewModel>
+@{
+    ViewBag.Title = "ManageShifts";
+}
+
+@using System.ComponentModel.DataAnnotations
+<h2>Shifts</h2>
+
+@if (TempData["Success"] != null)
+{
+    <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+}
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ShiftModelObject.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShiftModelObject.StartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShiftModelObject.EndTime)
+        </th>
+        <th>
+            Partner
+        </th>
+        <th>
+            Covering Partner
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShiftModelObject.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr class="table">
+            <td>
+                @Html.DisplayFor(modelItem => item.ShiftModelObject.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShiftModelObject.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShiftModelObject.EndTime)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ShiftModelObject.AspNetUser.FirstName) @Html.DisplayFor(modelItem => item.ShiftModelObject.AspNetUser.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoveredModelObject.AspNetUser.FirstName) @Html.DisplayFor(modelItem => item.CoveredModelObject.AspNetUser.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShiftModelObject.Status)
+            </td>
+
+            <td>
+                <button type="button" class="btn btn-success btn-md" onclick="location.href='@Url.Action("ApproveShift", "Shifts", new { id = item.ShiftModelObject.ShiftID })'">
+                    Approve
+                </button>
+                <button type="button" class="btn btn-danger btn-md" onclick="location.href='@Url.Action("DeclineShift", "Shifts", new { id = item.ShiftModelObject.ShiftID })'">
+                    Decline
+                </button>
+                <button type="button" class="btn btn-info btn-md" onclick="location.href='@Url.Action("Details", "Profile", new { id = item.CoveredModelObject.Id })'">
+                    View Partner
+                </button>
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+
+

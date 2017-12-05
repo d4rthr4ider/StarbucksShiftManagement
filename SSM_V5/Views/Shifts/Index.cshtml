@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SSM_V5.Models.Shift>
+
+@{
+    ViewBag.Title = "Shifts";
+}
+@using System.ComponentModel.DataAnnotations
+<h2>Shifts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                Partner
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store.StoreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShiftID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCovered)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+
+            <tr class="table">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.AspNetUser.FirstName) @Html.DisplayFor(modelItem => item.AspNetUser.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.StoreName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShiftID)
+                </td>
+                <th>
+                    @Html.DisplayFor(model => item.IsCovered)
+                </th>
+                <td>
+                    @Html.ActionLink("Create", "Create", new { id = item.ShiftID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ShiftID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ShiftID })
+                </td>
+            </tr>
+
+        }
+
+    </table>
+
+

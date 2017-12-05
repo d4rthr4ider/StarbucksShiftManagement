@@ -1,0 +1,99 @@
+﻿@model SSM_V5.Models.Shift
+
+@{
+    ViewBag.Title = "Post a Shift";
+}
+@using Microsoft.AspNet.Identity
+<head>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-2.2.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.timepicker.min.js"></script>
+    <link rel="stylesheet" href="~/Content/jquery.timepicker.css" type="text/css" />
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+            $('.datepicker').datepicker({
+                showOptions: { speed: 'fast' },
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'mm/dd/yy',
+                gotoCurrent: true
+            });
+            $('.timepicker').timepicker();
+        });   
+    </script>
+</head>
+<h2>Post a Shift</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @if (TempData["Success"] != null)
+        {
+            <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+        }
+
+            <h4>Please add your shift details below.</h4>
+        <div class="panel panel-success">
+            <div class="panel-heading">Shift Details</div>
+            <div class="panel-body">
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.StoreNum)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(model => model.Date, new { @class = "form-control datepicker" })
+                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(model => model.StartTime, new { @class = " form-control timepicker" })
+                        @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-sm-4">
+                        @Html.TextBoxFor(model => model.EndTime, new { @class = "form-control timepicker" })
+                        @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+<p></p>
+                <input type="submit" value="Post Shift" class="btn btn-success" /> <a class="btn btn-primary" @Html.ActionLink("View/Edit Shifts", "UserShiftIndex") <a class="btn btn-primary" @Html.ActionLink("View Approvals", "ApprovalIndex")
+            </div>
+
+}
+       
+           
+           
+       
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+@Scripts.Render("~/bundles/jstimepicker")
+@Styles.Render("~/bundles/csstimepicker")
+    
+
+}

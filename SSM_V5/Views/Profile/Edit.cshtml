@@ -1,0 +1,118 @@
+﻿@model SSM_V5.Models.AspNetUser
+@using SSM_V5.Controllers
+@{
+    ViewBag.Title = "Edit";
+}
+<style>
+    .labelpad {
+        padding-top: 7px;
+    }
+
+
+    .image {
+        position: relative;
+        float: left;
+        width: 10%;
+    }
+</style>
+
+<h2>Edit Your Profile</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @if (TempData["Success"] != null)
+        {
+            <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+        }
+        <div class="panel panel-primary">
+            <div class="panel-heading">@User.FullName()</div>
+            <div class="panel-body">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.PasswordHash)
+                @Html.HiddenFor(model => model.SecurityStamp)
+                @Html.HiddenFor(model => model.EmailConfirmed)
+                @Html.HiddenFor(model => model.PhoneNumberConfirmed)
+                @Html.HiddenFor(model => model.TwoFactorEnabled)
+                @Html.HiddenFor(model => model.LockoutEnabled)
+                @Html.HiddenFor(model => model.LockoutEndDateUtc)
+                @Html.HiddenFor(model => model.AccessFailedCount)
+                @Html.HiddenFor(model => model.StarCount)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 labelpad">
+                        @Html.HiddenFor(model => model.PhoneNumber)
+                        @Html.DisplayFor(model => model.PhoneNumber)
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 labelpad">
+                        @Html.HiddenFor(model => model.UserName)
+                        @Html.DisplayFor(model => model.UserName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StoreNum, "Store Number", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 labelpad">
+                        @Html.HiddenFor(model => model.StoreNum)
+                        @Html.DisplayFor(model => model.StoreNum)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Store.StoreName, "Store Name", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 labelpad">
+                        @Html.HiddenFor(model => model.Store.StoreName)
+                        @Html.DisplayFor(model => model.Store.StoreName)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+            <p><a class="btn btn-danger" @Html.ActionLink("Manage Account Security", "Index", "Manage")  <input type="submit" value="Save" class="btn btn-success" /> </p>
+
+                    </div>
+
+
+
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

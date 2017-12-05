@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+}
+@using SSM_V5.Controllers;
+@using Microsoft.AspNet.Identity
+
+<div style="background:#006633; color:white;" class="jumbotron">
+    <important> <h1>Starbucks Shift Management</h1></important>
+    <p class="lead">Welcome Store Manager!</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Post a Shift</h2>
+        <p>
+            From here, you can post an open shift that you need covered.
+        </p>
+        <p><a class="btn btn-primary" @Html.ActionLink("Post a Shift", "Create", "Shifts")</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Manage Shifts</h2>
+        <p>View all open shifts at your store, and approve any coverage bids.</p>
+        <p><a class="btn btn-primary" @Html.ActionLink("Manage Shifts", "ManageShifts", "Shifts")</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Manage Profile</h2>
+        <p>From here, you can edit your profile.</p>
+        <p><a class="btn btn-primary" @Html.ActionLink("Manage Profile", "UserDetails", "Profile", new { id = User.Identity.GetUserId() }, null)</a></p>
+    </div>
+</div>
